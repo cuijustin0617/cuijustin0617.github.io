@@ -2,33 +2,43 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: UofT EngSci + ML Researcher
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>University of Toronto</p>
+    <p>Toronto, ON, Canada</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
 announcements:
-  enabled: true # includes a list of news items
+  enabled: false # includes a list of news items
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
   limit: 5 # leave blank to include all the news in the `_news` folder
 
 latest_posts:
-  enabled: true
+  enabled: false
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a fourth-year [Engineering Science](https://www.youtube.com/watch?v=BcPO4yhWSUg&t=33s) (Machine Intelligence) student at the University of Toronto. My research sits at the intersection of **natural language processing**, **information retrieval**, and **human-AI interaction**. 
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+Large language models are remarkably powerful, but they also hallucinate and lack controllability. My research explores how to consistently leverage LLMs' strengths while mitigating their weaknesses through structured systems design, focusing on two core challenges:
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+- **Proactive intelligence:** Building systems that anticipate needs, complete underspecified requests, and efficiently elicit missing information
+- **Evidence accountability:** Ensuring generated outputs are grounded and verifiable
+
+Currently, I'm working with Professor [Tovi Grossman](https://www.dgp.toronto.edu/~tovi/) on building a proactive learning system that leverages rich information from users' daily interactions. The system anticipates what learners need and surfaces relevant information before they ask, exemplifying my approach of installing structure while maintaining accountability to actual user behavior.
+
+I'm also exploring causal reasoning in LLMs with Professor [Zhijing Jin](https://zhijing-jin.com/fantasy/) at the Vector Institute, investigating how causal inference can improve LLM reliability and interpretability.
+
+My work with Professor [Scott Sanner](https://d3m.mie.utoronto.ca/members/ssanner/) resulted in one of the first LLM-powered retrieval-augmented conversational recommender systems. The key insight was to install structure in both the system and the data: we used a semi-structured natural language state tracking framework to maintain conversational context, while grounding recommendations in factual item databases and user reviews. This approach balances the LLM's natural language generation capabilities with the reliability of structured retrieval, published at SIGIR 2024. More recently, we've been working on elaborative query reformulation techniques that transform underspecified natural language queries into more effective retrieval requests, making recommendation systems more robust to how users actually express their needs (arXiv 2025).
+
+I also explored applying score-based generative models to abstract reasoning problems with Professor [Alán Aspuru-Guzik](https://www.matter.toronto.edu/basic-content-page/about-alan).
+
+If you have questions or anything to discuss, reach out at [justin.cui@mail.utoronto.ca](mailto:justin.cui@mail.utoronto.ca)!
