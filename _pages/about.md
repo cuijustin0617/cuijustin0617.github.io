@@ -28,10 +28,7 @@ latest_posts:
 
 I am a fourth-year [Engineering Science](https://www.youtube.com/watch?v=BcPO4yhWSUg&t=33s) (Machine Intelligence) student at the University of Toronto. My research sits at the intersection of **natural language processing**, **information retrieval**, and **human-AI interaction**. 
 
-Large language models are remarkably powerful, but they also hallucinate and lack controllability. My research explores how to consistently leverage LLMs' strengths while mitigating their weaknesses through structured systems design, focusing on two core challenges:
-
-- **Proactive intelligence:** Building systems that anticipate needs, complete underspecified requests, and efficiently elicit missing information
-- **Evidence accountability:** Ensuring generated outputs are grounded and verifiable
+My research focuses on building human-centered AI systems that leverage natural language processing and information retrieval to assist, enhance, and accelerate human activities. I'm particularly interested in how structured systems design can help make AI tools more reliable and aligned with actual user needs.
 
 Currently, I'm working with Professor [Tovi Grossman](https://www.dgp.toronto.edu/~tovi/) on building a proactive learning system that leverages rich information from users' daily interactions. The system anticipates what learners need and surfaces relevant information before they ask, exemplifying my approach of installing structure while maintaining accountability to actual user behavior.
 
