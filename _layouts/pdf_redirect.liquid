@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0;url={{ page.pdf_url | bust_file_cache }}">
+  <link rel="canonical" href="{{ page.pdf_url | bust_file_cache }}" />
+  <title>Redirecting to {{ page.title }}</title>
+</head>
+<body>
+  <p>Redirecting to <a href="{{ page.pdf_url | bust_file_cache }}">{{ page.title }}</a>...</p>
+  <script>
+    window.location.href = "{{ page.pdf_url | bust_file_cache }}";
+  </script>
+</body>
+</html>
+
