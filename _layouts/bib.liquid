@@ -88,7 +88,8 @@
           <strong style="text-decoration: underline;">
             {{- author.first }}
             {%- assign author_last_name_only = author.last | regex_replace: '[*∗†‡§¶‖&^]', '' -%}
-            {{ " " }}{{ author_last_name_only -}}
+            {{ ' ' -}}
+            {{- author_last_name_only -}}
           </strong>
           {%- assign author_superscript = author.last | regex_replace: '[^*∗†‡§¶‖&^]', '' -%}
           {%- if author_superscript != '' -%}
@@ -160,9 +161,7 @@
       {% endif %}
     {% endfor %}
     {% if has_asterisk %}
-      <div class="equal-contribution-note" style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">
-        * denotes equal contribution
-      </div>
+      <div class="equal-contribution-note" style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">* denotes equal contribution</div>
     {% endif %}
 
     <!-- Journal/Book title and date -->

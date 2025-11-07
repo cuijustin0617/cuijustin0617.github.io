@@ -135,8 +135,8 @@ bundle install
 ## Support
 
 For al-folio template issues, see:
+
 - [al-folio documentation](https://github.com/alshedivat/al-folio)
 - [Jekyll documentation](https://jekyllrb.com/docs/)
 
 For questions about this customization, contact justin.cui@mail.utoronto.ca
-

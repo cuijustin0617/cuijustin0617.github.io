@@ -26,7 +26,7 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a fourth-year [Engineering Science](https://www.youtube.com/watch?v=BcPO4yhWSUg&t=33s) (Machine Intelligence) student at the University of Toronto. My research sits at the intersection of **natural language processing**, **information retrieval**, and **human-AI interaction**. 
+I am a fourth-year [Engineering Science](https://www.youtube.com/watch?v=BcPO4yhWSUg&t=33s) (Machine Intelligence) student at the University of Toronto. My research sits at the intersection of **natural language processing**, **information retrieval**, and **human-AI interaction**.
 
 My research focuses on building **human-centered AI systems** that leverage natural language processing and information retrieval to assist, enhance, and accelerate human activities. I'm particularly interested in how structured systems design can help make AI tools more reliable and aligned with actual user needs.
 
