@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: UofT EngSci + ML Researcher
+subtitle: UofT EngSci + AI Researcher
 
 profile:
   align: right
