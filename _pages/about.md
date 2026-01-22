@@ -6,7 +6,7 @@ subtitle: UofT EngSci + AI Researcher
 
 profile:
   align: right
-  image: pfp_green.png
+  image: van_pfp.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>University of Toronto</p>
