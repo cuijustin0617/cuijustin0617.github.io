@@ -7,14 +7,14 @@ first_name: Justin
 middle_name:
 last_name: Cui
 contact_note: >
-  Feel free to reach out via email at justin.cui@mail.utoronto.ca
+  Feel free to reach out via email at justincu@andrew.cmu.edu
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Justin Cui - Fourth-year Engineering Science (Machine Intelligence) student at University of Toronto. Research in natural language processing, information retrieval, and human-AI interaction.
+  Justin Cui - First-year MIIS student at the Language Technologies Institute, School of Computer Science, Carnegie Mellon University. Research in natural language processing, information retrieval, and human-AI interaction.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
   Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: Justin Cui, University of Toronto, Machine Learning, Natural Language Processing, Information Retrieval, Human-AI Interaction, Conversational AI # add your own keywords or leave empty
+keywords: Justin Cui, Carnegie Mellon University, Language Technologies Institute, School of Computer Science, MIIS, Machine Learning, Natural Language Processing, Information Retrieval, Human-AI Interaction, Conversational AI # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 

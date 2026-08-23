@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: UofT EngSci + AI Researcher
+subtitle: MIIS @ CMU LTI
 
 profile:
   align: right
@@ -25,7 +25,7 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a fourth-year [Engineering Science](https://www.youtube.com/watch?v=BcPO4yhWSUg&t=33s) (Machine Intelligence) student at the University of Toronto. My research focuses on **human-AI interaction**.
+I am a first-year [MIIS](https://www.lti.cs.cmu.edu/academics/masters-programs/miis.html) student at the [Language Technologies Institute](https://www.lti.cs.cmu.edu/) in the [School of Computer Science](https://www.cs.cmu.edu/) at [Carnegie Mellon University](https://www.cmu.edu/). My research focuses on **human-AI interaction**.
 
 I'm interested in building intelligent, fluid interfaces that augment human workflow rather than replace it—supporting complex and creative tasks through systems that enhance rather than automate human capabilities.
 
@@ -33,4 +33,4 @@ Currently, I'm working with Professor [Tovi Grossman](https://www.dgp.toronto.ed
 
 Previously, I worked with Professor [Scott Sanner](https://d3m.mie.utoronto.ca/members/ssanner/) on retrieval-augmented conversational recommendation (SIGIR 2024), grounding LLM recommendations in structured data and user reviews. I also explored score-based generative models with Professor [Alán Aspuru-Guzik](https://www.matter.toronto.edu/basic-content-page/about-alan) at the Vector Institute.
 
-Reach out at [justin.cui@mail.utoronto.ca](mailto:justin.cui@mail.utoronto.ca)!
+Reach out at [justincu@andrew.cmu.edu](mailto:justincu@andrew.cmu.edu)!

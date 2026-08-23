@@ -30,10 +30,10 @@
   --global-newsletter-bg-color: #{$white-color};
   --global-newsletter-text-color: #{$black-color};
 
-  --global-tip-block: #42b983;
-  --global-tip-block-bg: #e2f5ec;
-  --global-tip-block-text: #215d42;
-  --global-tip-block-title: #359469;
+  --global-tip-block: #3d7ec4;
+  --global-tip-block-bg: #e2eef8;
+  --global-tip-block-text: #21507a;
+  --global-tip-block-title: #3574a8;
   --global-warning-block: #e7c000;
   --global-warning-block-bg: #fff8d8;
   --global-warning-block-text: #6b5900;
@@ -78,28 +78,28 @@
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --global-bg-color: #0d1f14;
-  --global-code-bg-color: #152820;
-  --global-text-color: #e8f0ec;
-  --global-text-color-light: #9db3a5;
+  --global-bg-color: #0c1828;
+  --global-code-bg-color: #152436;
+  --global-text-color: #e8eef6;
+  --global-text-color-light: #9db0c4;
   --global-theme-color: #{$purple-color};
-  --global-hover-color: #3eb872;
-  --global-hover-text-color: #0d1f14;
-  --global-footer-bg-color: #0a1710;
-  --global-footer-text-color: #e8f0ec;
-  --global-footer-link-color: #f0f8f4;
-  --global-distill-app-color: #e8f0ec;
-  --global-divider-color: #244032;
-  --global-card-bg-color: #152820;
-  --global-back-to-top-bg-color: rgba(45, 155, 93, 0.4);
-  --global-back-to-top-text-color: #f0f8f4;
-  --global-newsletter-bg-color: #152820;
-  --global-newsletter-text-color: #e8f0ec;
+  --global-hover-color: #82cafb;
+  --global-hover-text-color: #0c1828;
+  --global-footer-bg-color: #08121c;
+  --global-footer-text-color: #e8eef6;
+  --global-footer-link-color: #f0f6fb;
+  --global-distill-app-color: #e8eef6;
+  --global-divider-color: #243a54;
+  --global-card-bg-color: #152436;
+  --global-back-to-top-bg-color: rgba(61, 126, 196, 0.4);
+  --global-back-to-top-text-color: #f0f6fb;
+  --global-newsletter-bg-color: #152436;
+  --global-newsletter-text-color: #e8eef6;
 
-  --global-tip-block: #3eb872;
-  --global-tip-block-bg: #1a3826;
-  --global-tip-block-text: #9dd4af;
-  --global-tip-block-title: #5dc988;
+  --global-tip-block: #68a9ee;
+  --global-tip-block-bg: #1a2a3d;
+  --global-tip-block-text: #9dc4e0;
+  --global-tip-block-title: #82cafb;
   --global-warning-block: #d4b956;
   --global-warning-block-bg: #2d2818;
   --global-warning-block-text: #e6d399;
