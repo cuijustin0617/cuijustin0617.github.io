@@ -22,11 +22,11 @@ citations: 99
 
 education:
   - title: Carnegie Mellon University
-    sub: MS, Intelligent Information Systems
+    sub: MS, School of Computer Science
     when: Dec 2027
     logo: logos/cmu.png
     fill: true
-    detail: MIIS is the Language Technologies Institute’s focused master’s program in AI and NLP.
+    detail: Master of Science in Intelligent Information Systems (MIIS), the Language Technologies Institute’s focused master’s program in AI and NLP.
   - title: University of Toronto
     sub: BASc, Engineering Science · GPA 3.97
     when: May 2026
