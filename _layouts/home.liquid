@@ -130,12 +130,25 @@
         </a>
       </footer>
     </main>
+    <button class="pinned" type="button" hidden></button>
     <script>
       // Hovering (or tapping) a topic in the intro highlights the rows tagged with it.
       (function () {
         var items = document.querySelectorAll('[data-topics]');
         var topics = document.querySelectorAll('.topic');
+        var chip = document.querySelector('.pinned');
         var pinned = null;
+        function pin(key) {
+          pinned = key;
+          show(key);
+          chip.hidden = !key;
+          if (key) {
+            var name = document.querySelector('.topic[data-topic="' + key + '"]').textContent;
+            var n = document.querySelectorAll('[data-topics].on').length;
+            chip.innerHTML = name + ' <small>' + n + '</small> <i aria-hidden="true">×</i>';
+            chip.setAttribute('aria-label', 'Clear highlight: ' + name);
+          }
+        }
         function show(key) {
           document.body.classList.toggle('filtering', !!key);
           items.forEach(function (el) {
@@ -160,14 +173,12 @@
             show(pinned);
           });
           t.addEventListener('click', function () {
-            pinned = pinned === key ? null : key;
-            show(pinned);
+            pin(pinned === key ? null : key);
           });
         });
         document.addEventListener('click', function (e) {
           if (pinned && !e.target.closest('.topic')) {
-            pinned = null;
-            show(null);
+            pin(null);
           }
         });
       })();

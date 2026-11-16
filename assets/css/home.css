@@ -195,10 +195,15 @@ h1 {
     color 0.15s,
     background-color 0.15s;
 }
-.topic:hover,
 .topic.active {
   color: var(--acc);
   text-decoration-style: solid;
+}
+@media (hover: hover) {
+  .topic:hover {
+    color: var(--acc);
+    text-decoration-style: solid;
+  }
 }
 .topic:focus-visible {
   outline: 2px solid var(--acc);
@@ -224,10 +229,55 @@ h1 {
   border-color: transparent;
   transform: translateY(-2px);
   box-shadow:
-    0 0 0 10px #fff,
-    0 0 0 11px rgba(var(--acc-rgb), 0.4),
-    0 1px 3px 10px rgba(0, 0, 0, 0.06),
+    0 0 0 8px #fff,
+    0 0 0 9px rgba(var(--acc-rgb), 0.4),
+    0 1px 3px 8px rgba(0, 0, 0, 0.06),
     0 12px 28px 6px rgba(0, 0, 0, 0.1);
+}
+/* stacked matches share one frame: drop the lower card's top edge */
+.filtering .entry.on + .entry.on {
+  clip-path: inset(-1px -60px -60px -60px);
+}
+@media (min-width: 761px) {
+  /* publications sit in two columns, so the row above is two items back */
+  .filtering .pub.on + .pub + .pub.on {
+    clip-path: inset(-1px -60px -60px -60px);
+  }
+}
+/* shown while a topic is pinned, so it can be cleared from anywhere on the page */
+.pinned {
+  position: fixed;
+  left: 50%;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--acc);
+  color: #fff;
+  font:
+    500 13px/1 Inter,
+    system-ui,
+    sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+.pinned[hidden] {
+  display: none;
+}
+.pinned small {
+  font: inherit;
+  opacity: 0.7;
+}
+.pinned i {
+  font-style: normal;
+  font-size: 16px;
+  line-height: 0.8;
 }
 
 /* ---------- sections ---------- */
@@ -239,7 +289,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 h2::after {
   content: "";
@@ -482,6 +532,23 @@ details[open] .chev {
   .cols,
   .publist {
     grid-template-columns: 1fr;
+  }
+  .filtering .pub.on + .pub.on {
+    clip-path: inset(-1px -60px -60px -60px);
+  }
+  /* finger-sized tap targets */
+  .links {
+    margin: 8px 0 -6px -10px;
+    gap: 0;
+  }
+  .links a {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+    justify-content: center;
+  }
+  .personal a {
+    min-height: 44px;
   }
   .pub:nth-last-child(2):nth-child(odd) {
     border-bottom: 1px solid var(--line);
