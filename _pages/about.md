@@ -1,36 +1,5 @@
 ---
-layout: about
+layout: home
 title: about
 permalink: /
-subtitle: MIIS @ CMU LTI
-
-profile:
-  align: right
-  image: van_pfp.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>Burnaby, Vancouver</p>
-
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
-
-announcements:
-  enabled: false # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
-
-latest_posts:
-  enabled: false
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
 ---
-
-I am a first-year [MIIS](https://www.lti.cs.cmu.edu/academics/masters-programs/miis.html) student at the [Language Technologies Institute](https://www.lti.cs.cmu.edu/) in the [School of Computer Science](https://www.cs.cmu.edu/) at [Carnegie Mellon University](https://www.cmu.edu/). My research focuses on **human-AI interaction**.
-
-I'm interested in building intelligent, fluid interfaces that augment human workflow rather than replace it—supporting complex and creative tasks through systems that enhance rather than automate human capabilities.
-
-Currently, I'm working with Professor [Tovi Grossman](https://www.dgp.toronto.edu/~tovi/) on **LOOM**, a proactive learning system that builds personalized knowledge graphs from user interactions. We are continuing to develop visualizations that help users see how concepts connect and identify gaps in their understanding.
-
-Previously, I worked with Professor [Scott Sanner](https://d3m.mie.utoronto.ca/members/ssanner/) on retrieval-augmented conversational recommendation (SIGIR 2024), grounding LLM recommendations in structured data and user reviews. I also explored score-based generative models with Professor [Alán Aspuru-Guzik](https://www.matter.toronto.edu/basic-content-page/about-alan) at the Vector Institute.
-
-Reach out at [justincu@andrew.cmu.edu](mailto:justincu@andrew.cmu.edu)!

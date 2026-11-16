@@ -1,0 +1,24 @@
+{% comment %} One logo row for the home layout. Rows with `detail` expand on click. {% endcomment %}
+{% capture row_body %}
+  <span class="logo{% if include.item.fill %} fill{% endif %}">
+    <img src="{{ include.item.logo | prepend: '/assets/img/' | relative_url }}" alt="" loading="lazy">
+  </span>
+  <span class="what">
+    <b>{{ include.item.title }}</b>
+    <span class="sub">{{ include.item.sub }}</span>
+    <span class="when">{{ include.item.when }}</span>
+  </span>
+{% endcapture %}
+{% if include.item.detail %}
+  <details class="entry">
+    <summary class="row">
+      {{ row_body }}
+      <span class="chev" aria-hidden="true"></span>
+    </summary>
+    <p class="more">{{ include.item.detail }}</p>
+  </details>
+{% else %}
+  <div class="entry">
+    <div class="row">{{ row_body }}</div>
+  </div>
+{% endif %}
