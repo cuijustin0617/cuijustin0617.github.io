@@ -8,10 +8,13 @@ roles:
   - ML Engineer
   - AI Researcher
 photo: profile_home.jpg
+# Words wrapped in a topic span highlight the matching rows below on hover.
+# Topic keys: pers, rec, ret, hai, mlp, llm, gen. Tag rows with `topics:`.
 bio: >-
-  My background is in personalization, recommendation, retrieval and human-AI collaboration.
-  I work with ML pipelines (data augmentation, fine-tuning, inference optimization),
-  LLM systems (RAG, agents) and generative models (diffusion, multimodal).
+  My background is in <span class="topic" data-topic="pers" tabindex="0">personalization</span>, <span class="topic" data-topic="rec" tabindex="0">recommendation</span>,
+  <span class="topic" data-topic="ret" tabindex="0">retrieval</span> and <span class="topic" data-topic="hai" tabindex="0">human-AI collaboration</span>.
+  I work with <span class="topic" data-topic="mlp" tabindex="0">ML pipelines</span> (data augmentation, fine-tuning, inference optimization),
+  <span class="topic" data-topic="llm" tabindex="0">LLM systems</span> (RAG, agents) and <span class="topic" data-topic="gen" tabindex="0">generative models</span> (diffusion, multimodal).
 
 email: justincu@andrew.cmu.edu
 github: https://github.com/cuijustin0617
@@ -22,12 +25,14 @@ citations: 99
 
 education:
   - title: Carnegie Mellon University
+    topics: rec ret hai mlp llm gen
     sub: MS, School of Computer Science
     when: Dec 2027
     logo: logos/cmu.png
     fill: true
     detail: Master of Science in Intelligent Information Systems (MIIS), the Language Technologies Institute’s focused master’s program in AI and NLP.
   - title: University of Toronto
+    topics: pers rec ret mlp llm gen
     sub: BASc, Engineering Science · GPA 3.97
     when: May 2026
     logo: logos/uoft.png
@@ -35,6 +40,7 @@ education:
 
 industry:
   - title: Machine Learning Engineer Intern
+    topics: mlp llm gen
     sub: ModiFace, L’Oréal
     when: May 2024 – Apr 2025
     logo: logos/modiface.png
@@ -46,27 +52,32 @@ industry:
 
 research:
   - title: Language Technologies Institute, CMU
+    topics: hai llm
     sub: with Prof. Carolyn Rosé
     when: 2026 – Present
     logo: logos/cmu.png
     fill: true
     detail: Human-AI collaboration.
   - title: DGP Lab, University of Toronto
+    topics: pers ret hai llm
     sub: with Prof. Tovi Grossman
     when: Sep 2025 – Aug 2026
     logo: logos/dgp.png
     detail: "Personal memory for LLM chat (WeaveChat, LOOM): topic-scoped RAG, user-controlled memory, user studies."
   - title: Vector Institute
+    topics: ret llm
     sub: with Prof. Zhijing Jin
     when: Aug 2025 – Present
     logo: logos/vector.png
     detail: LLM agents for causal inference; CauSciBench benchmark (ICML 2026).
   - title: Vector Institute
+    topics: mlp gen
     sub: with Prof. Alán Aspuru-Guzik
     when: Apr – Aug 2025
     logo: logos/vector.png
     detail: Compositional diffusion models for few-shot ARC reasoning.
   - title: D3M Lab, University of Toronto
+    topics: pers rec ret llm
     sub: with Prof. Scott Sanner
     when: Apr 2023 – Apr 2025
     logo: logos/uoft.png
@@ -75,11 +86,13 @@ research:
 # authors: wrap your own name in <b></b>. image is optional; without one the tile shows `tile`.
 publications:
   - title: "Who Shapes What Persists? Negotiating Personal Context Across LLM Conversations"
+    topics: pers hai llm
     authors: "<b>J. Cui</b>, K. Pu, T. Grossman"
     venue: Under review
     note: CHI 2027
     image: publication_preview/weavechat.png
   - title: "LOOM: Personalized Learning Informed by Daily LLM Conversations Toward Long-Term Mastery via a Dynamic Learner Memory Graph"
+    topics: pers hai llm
     authors: "<b>J. Cui</b>, K. Pu, T. Grossman"
     venue: AAAI 2026
     note: PerFM workshop
@@ -87,27 +100,32 @@ publications:
     paper: https://arxiv.org/abs/2511.21037
     code: https://github.com/cuijustin0617/loom
   - title: "Retrieval-Augmented Conversational Recommendation with Prompt-based Semi-Structured Natural Language State Tracking"
+    topics: pers rec ret llm
     authors: "S. Kemper*, <b>J. Cui*</b>, K. Dicarlantonio*, K. Lin*, D. Tang*, A. Korikov, S. Sanner"
     venue: SIGIR 2024
     image: publication_preview/SIGIR.png
     paper: https://arxiv.org/pdf/2406.00033
     code: https://github.com/D3Mlab/llm-convrec
   - title: "Bayesian Active Learning with Gaussian Processes Guided by LLM Relevance Scoring for Dense Passage Retrieval"
+    topics: ret llm
     authors: "J. Kim, A. Korikov, J. Liang, <b>J. Cui</b>, Y. Liu, Q. Wen, M. Zhao, S. Sanner"
     venue: ACL 2026
     image: publication_preview/bayesian.png
     paper: https://aclanthology.org/2026.findings-acl.481/
   - title: "Multimodal Item Scoring for Natural Language Recommendation via Gaussian Process Regression with LLM Relevance Judgments"
+    topics: rec ret gen
     authors: "Y. Liu*, Q. Wen*, J. Liang*, M. Zhao*, <b>J. Cui</b>, A. Korikov, A. Toroghi, J. Kim, S. Sanner"
     venue: ACL 2026
     image: publication_preview/multimodal.png
     paper: https://aclanthology.org/2026.findings-acl.1836/
   - title: "CauSciBench: Can LLMs Automate Causal Inference in Real-World Scientific Research?"
+    topics: llm
     authors: "S. Acharya, T. J. Zhang, … <b>J. Cui</b>, … B. Schölkopf, Z. Jin"
     venue: ICML 2026
     image: publication_preview/causcibench.png
     paper: https://proceedings.mlr.press/v306/acharya26a.html
   - title: "A Simple but Effective Elaborative Query Reformulation Approach for Natural Language Recommendation"
+    topics: rec ret llm
     authors: "Q. Wen*, Y. Liu*, <b>J. Cui*</b>, J. Zhang, A. Korikov, G. K. Saad, S. Sanner"
     venue: arXiv 2025
     image: publication_preview/EQR.png

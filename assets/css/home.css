@@ -4,7 +4,8 @@
   --soft: #333;
   --mute: #757575;
   --line: #e9e9e9;
-  --acc: #0f5132;
+  --acc-rgb: 29, 78, 216;
+  --acc: rgb(var(--acc-rgb));
   --serif: "Instrument Serif", Georgia, serif;
 }
 * {
@@ -36,7 +37,8 @@ body::before {
   height: 620px;
   z-index: -1;
   pointer-events: none;
-  background-image: linear-gradient(rgba(15, 81, 50, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 81, 50, 0.09) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(var(--acc-rgb), 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--acc-rgb), 0.09) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: center top;
   -webkit-mask-image: linear-gradient(#000, transparent);
@@ -180,6 +182,52 @@ h1 {
   height: 100%;
   object-fit: cover;
   object-position: 50% 45%;
+}
+
+/* ---------- topic highlighting ---------- */
+.topic {
+  cursor: pointer;
+  text-decoration: underline dotted rgba(var(--acc-rgb), 0.55);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  border-radius: 3px;
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+}
+.topic:hover,
+.topic.active {
+  color: var(--acc);
+  text-decoration-style: solid;
+}
+.topic:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 2px;
+}
+.entry,
+.pub {
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+/* while a topic is active: unrelated rows fade, related rows lift onto a white card with an accent outline */
+.filtering .entry:not(.on),
+.filtering .pub:not(.on) {
+  opacity: 0.14;
+}
+.filtering .on {
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 10px #fff,
+    0 0 0 11px rgba(var(--acc-rgb), 0.4),
+    0 1px 3px 10px rgba(0, 0, 0, 0.06),
+    0 12px 28px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* ---------- sections ---------- */

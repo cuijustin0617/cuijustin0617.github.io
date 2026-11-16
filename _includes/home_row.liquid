@@ -10,7 +10,7 @@
   </span>
 {% endcapture %}
 {% if include.item.detail %}
-  <details class="entry">
+  <details class="entry" data-topics="{{ include.item.topics }}">
     <summary class="row">
       {{ row_body }}
       <span class="chev" aria-hidden="true"></span>
@@ -18,7 +18,7 @@
     <p class="more">{{ include.item.detail }}</p>
   </details>
 {% else %}
-  <div class="entry">
+  <div class="entry" data-topics="{{ include.item.topics }}">
     <div class="row">{{ row_body }}</div>
   </div>
 {% endif %}

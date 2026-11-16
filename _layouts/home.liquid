@@ -89,7 +89,7 @@
         <h2>Publications</h2>
         <div class="publist">
           {% for p in d.publications %}
-            <article class="pub">
+            <article class="pub" data-topics="{{ p.topics }}">
               {% if p.image %}
                 <span class="thumb">
                   <img src="{{ p.image | prepend: '/assets/img/' | relative_url }}" alt="" loading="lazy">
@@ -130,6 +130,48 @@
         </a>
       </footer>
     </main>
+    <script>
+      // Hovering (or tapping) a topic in the intro highlights the rows tagged with it.
+      (function () {
+        var items = document.querySelectorAll('[data-topics]');
+        var topics = document.querySelectorAll('.topic');
+        var pinned = null;
+        function show(key) {
+          document.body.classList.toggle('filtering', !!key);
+          items.forEach(function (el) {
+            el.classList.toggle('on', !!key && el.dataset.topics.split(' ').indexOf(key) > -1);
+          });
+          topics.forEach(function (t) {
+            t.classList.toggle('active', t.dataset.topic === key);
+          });
+        }
+        topics.forEach(function (t) {
+          var key = t.dataset.topic;
+          t.addEventListener('pointerenter', function (e) {
+            if (e.pointerType === 'mouse') show(key);
+          });
+          t.addEventListener('pointerleave', function (e) {
+            if (e.pointerType === 'mouse') show(pinned);
+          });
+          t.addEventListener('focus', function () {
+            show(key);
+          });
+          t.addEventListener('blur', function () {
+            show(pinned);
+          });
+          t.addEventListener('click', function () {
+            pinned = pinned === key ? null : key;
+            show(pinned);
+          });
+        });
+        document.addEventListener('click', function (e) {
+          if (pinned && !e.target.closest('.topic')) {
+            pinned = null;
+            show(null);
+          }
+        });
+      })();
+    </script>
     {% if site.enable_google_analytics %}
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
       <script>
