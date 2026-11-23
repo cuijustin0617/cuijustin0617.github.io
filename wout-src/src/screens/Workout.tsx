@@ -1,8 +1,10 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { addExercise, beginSession, finishSession, getPreviousSets, sessionStats, uid, type Session, type WorkoutState } from '../../shared/workout.ts';
 import { addAccessibleExercise, suggestExercises } from '../../shared/recommendations.ts';
 import { rankBigGroups, type BigGroupStatus } from '../../shared/big-groups.ts';
 import { BigGroupsCard } from '../components/BigGroups.tsx';
+import { DEFAULT_SESSION_NAME, isAutoName, sessionSummary, sessionTitle } from '../../shared/session-title.ts';
+import { exerciseById } from '../../shared/catalog.ts';
 import { latestBodyweight } from '../../shared/strength.ts';
 import { useWout } from '../lib/store.tsx';
 import { go, useCatalog, useNow } from '../lib/hooks.ts';
@@ -55,9 +57,7 @@ export function WorkoutScreen({ onAddExercise }: { onAddExercise: () => void }) 
     <>
       <div className="topbar" style={{ alignItems: 'flex-start' }}>
         <div className="grow">
-          <input className="name-input" aria-label="Workout name" defaultValue={active.name} key={active.id + active.name} maxLength={200}
-            onBlur={e => { const name = e.target.value.trim(); if (name && name !== active.name) editActive(s => ({ ...s, name })); else e.target.value = active.name; }}
-            onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }} />
+          <ActiveTitle session={active} onRename={name => editActive(s => (s.name === name ? s : { ...s, name }))} />
           <div className="subtitle">{dayLabel(active.startedAt)} · {active.exercises.length} exercise{active.exercises.length === 1 ? '' : 's'}</div>
         </div>
         <button className="btn dark" onClick={finish}>Finish</button>
@@ -97,6 +97,29 @@ export function WorkoutScreen({ onAddExercise }: { onAddExercise: () => void }) 
   );
 }
 
+/**
+ * Workout title: a custom name, or the generated "3×Bench · 4×Squat" summary. Tap to rename;
+ * clearing the name goes back to the automatic title.
+ */
+function ActiveTitle({ session, onRename }: { session: Session; onRename: (name: string) => void }) {
+  const [editing, setEditing] = useState(false);
+  const auto = isAutoName(session.name);
+  const title = sessionTitle(session, exerciseById);
+  if (editing) {
+    return (
+      <input className="name-input" aria-label="Workout name (leave empty for automatic)" autoFocus maxLength={200}
+        defaultValue={auto ? '' : session.name} placeholder={sessionSummary(session, exerciseById) || 'Workout name'}
+        onBlur={e => { onRename(e.target.value.trim() || DEFAULT_SESSION_NAME); setEditing(false); }}
+        onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); if (e.key === 'Escape') setEditing(false); }} />
+    );
+  }
+  return (
+    <button className="title-button" onClick={() => setEditing(true)} aria-label={`${title}. Rename workout`}>
+      <h1 className={auto ? 'auto-title' : 'name-title'}>{title}</h1>
+    </button>
+  );
+}
+
 function ActiveHero({ session }: { session: Session }) {
   const stats = sessionStats(session);
   return (
@@ -126,7 +149,7 @@ function IdleWorkout({ groups, onAdd }: { groups: BigGroupStatus[]; onAdd: (id: 
       <section className="hero">
         <div style={{ fontSize: 22, lineHeight: '28px', fontWeight: 800, fontStretch: '105%' }}>Ready when you are</div>
         <div className="subtitle" style={{ marginTop: 2 }}>
-          {last ? `Last: ${last.name} · ${ago(last.finishedAt ?? last.startedAt)}` : 'Start a workout and log your first sets.'}
+          {last ? `Last: ${sessionTitle(last, exerciseById)} · ${ago(last.finishedAt ?? last.startedAt)}` : 'Start a workout and log your first sets.'}
         </div>
         <button className="btn primary lg block" style={{ marginTop: 12 }} onClick={() => update(beginSession)}>
           <Icon name="plus" size={20} stroke={2.6} />Start workout
@@ -151,7 +174,7 @@ function IdleWorkout({ groups, onAdd }: { groups: BigGroupStatus[]; onAdd: (id: 
             {recent.map(s => (
               <div key={s.id} className="list-row">
                 <div className="grow">
-                  <div className="t ellipsis">{s.name}</div>
+                  <div className="t session-title">{sessionTitle(s, exerciseById)}</div>
                   <div className="s ellipsis">{dayLabel(s.finishedAt ?? s.startedAt)} · {s.exercises.length} exercises</div>
                 </div>
                 <button className="btn sm tonal" onClick={() => update(st => repeatSession(st, s))}><Icon name="repeat" size={15} />Repeat</button>

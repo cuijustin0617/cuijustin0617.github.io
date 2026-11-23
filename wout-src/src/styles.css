@@ -205,6 +205,12 @@ h1, h2, h3, p { margin: 0; }
 .stat .v small { font-size: 13px; font-weight: 600; opacity: 0.8; }
 .name-input { font-size: 26px; line-height: 32px; font-weight: 800; font-stretch: 110%; border: 0; background: transparent; width: 100%; padding: 0; outline: none; border-radius: 6px; }
 .name-input:focus { background: var(--surface); }
+.name-input::placeholder { color: var(--ink-3); font-size: 18px; }
+.title-button { display: block; width: 100%; text-align: left; border-radius: 8px; }
+.title-button h1 { margin: 0; overflow-wrap: anywhere; }
+.name-title { font-size: 26px; line-height: 32px; font-weight: 800; font-stretch: 110%; }
+.auto-title { font-size: 19px; line-height: 24px; font-weight: 800; font-stretch: 100%; letter-spacing: -0.01em; }
+.session-title { font-size: 14px !important; line-height: 19px; overflow-wrap: anywhere; }
 
 .ex-card { background: var(--surface); border-radius: var(--radius-l); padding: 10px 10px 10px 12px; }
 .ex-head { display: flex; align-items: flex-start; gap: 8px; }

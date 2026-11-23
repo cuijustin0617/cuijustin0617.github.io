@@ -9,6 +9,8 @@ import { ExerciseCard } from '../components/ExerciseCard.tsx';
 import { ExercisePicker } from '../components/ExercisePicker.tsx';
 import { Sheet } from '../components/Sheet.tsx';
 import { Icon } from '../components/Icon.tsx';
+import { DEFAULT_SESSION_NAME, isAutoName, sessionSummary, sessionTitle } from '../../shared/session-title.ts';
+import { exerciseById } from '../../shared/catalog.ts';
 import { ProfileButton, repeatSession } from './Workout.tsx';
 
 /** Latest timestamp in a session (start, finish or any set). */
@@ -61,7 +63,7 @@ export function HistoryScreen() {
                 <div key={s.id}>
                   <button className="list-row" onClick={() => setOpen(isOpen ? null : s.id)} aria-expanded={isOpen}>
                     <div className="grow">
-                      <div className="t ellipsis">{s.name}</div>
+                      <div className="t session-title">{sessionTitle(s, exerciseById)}</div>
                       <div className="s ellipsis">
                         {dayLabel(s.finishedAt ?? s.startedAt)} · {stats.sets} sets · {s.exercises.length} exercises · {whole(stats.volume)} lb
                       </div>
@@ -108,8 +110,9 @@ function SessionEditor({ id, onClose }: { id: string; onClose: () => void }) {
   return (
     <Sheet title="Edit workout" onClose={onClose}>
       <div className="row" style={{ gap: 6 }}>
-        <input className="input on-surface grow" aria-label="Workout name" defaultValue={session.name} maxLength={200}
-          onBlur={e => { const n = e.target.value.trim(); if (n && n !== session.name) edit(s => ({ ...s, name: n })); }} />
+        <input className="input on-surface grow" aria-label="Workout name (leave empty for automatic)" maxLength={200}
+          defaultValue={isAutoName(session.name) ? '' : session.name} placeholder={sessionSummary(session, exerciseById) || 'Workout name'}
+          onBlur={e => { const n = e.target.value.trim() || DEFAULT_SESSION_NAME; if (n !== session.name) edit(s => ({ ...s, name: n })); }} />
         <input type="date" className="input on-surface" style={{ width: 160 }} aria-label="Workout date" value={dateInputValue(session.finishedAt ?? session.startedAt)}
           max={dateInputValue(Date.now())}
           onChange={e => { if (!e.target.value) return; try { edit(s => notInFuture(setSessionDate(s, e.target.value))); } catch (err) { toast((err as Error).message); } }} />
