@@ -1,0 +1,27 @@
+{
+  "exercise": "hammer-strength-iso-lateral-row",
+  "retrieved": "2026-11-12",
+  "model": "Hammer Strength IL-ROW, plate-loaded standard horizontal row; excludes high/low/D.Y./MTS variants",
+  "manufacturer": {
+    "url": "https://www.lifefitness.com/en-us/catalog/strength-training/plate-loaded/plate-loaded-iso-lateral-row",
+    "startingResistanceLbPerArm": 12,
+    "note": "Independent workarms. Added plates are not handle-force measurements. Do not infer a stack-row or barbell conversion from these specifications."
+  },
+  "reference": {
+    "url": "https://www.strongermobileapp.com/strength-standards/iso-lateral-row-machine",
+    "source": "Stronger public iso-lateral row machine table",
+    "labels": ["Novice", "Intermediate", "Advanced", "Elite", "World Class"],
+    "unit": "lb",
+    "load": "1RM",
+    "bodyweightRows": {"male": 7, "female": 6},
+    "method": "Copy the displayed pound values verbatim, including their rounded bodyweight labels; interpolate between rows and clamp at endpoints. The source kg and lb displays are not exact conversions due to rounding. Beginner means below the Novice threshold; no beginner threshold was invented.",
+    "limitations": "The source claims population-level data without identifying a model-specific sample, sample size, grip, range of motion, loading convention or starting-resistance treatment. These are provisional family-level tiers, not validated Hammer Strength norms or percentile anchors.",
+    "siteLoadConvention": "Combined load including both 12 lb workarms; 70 lb plates per arm = 164 lb combined. This is an explicit local assumption because the reference convention is unspecified. The site neither doubles the logged load nor adds starting resistance again.",
+    "presentation": "Provisional tier + ordinal progress line, never population percentile. No percentile-based weakness signal from these tiers in recommendations. Rep targets invert the site's existing Brzycki/Epley equation."
+  },
+  "reviewedAlternatives": [
+    {"url": "https://strengthlevel.com/strength-standards/machine-row/lb", "decision": "Not reused for IL-ROW: 307206 generic machine-row lift entries mix machine designs and unspecified conventions."},
+    {"url": "https://gravitus.com/guides/exercises/machine-row/", "decision": "Rejected as model-specific norm: publisher explicitly states that stack and plate-loaded machines are mixed."},
+    {"url": "https://digitalcommons.wku.edu/theses/299/", "decision": "2006 thesis abstract reports 31 trained men and higher Hammer Strength than free-weight 1RM; it supplies no IL-ROW population tiers. Full text returned 403, so no conversion equation was used."}
+  ]
+}

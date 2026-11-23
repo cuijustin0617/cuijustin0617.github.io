@@ -1,0 +1,40 @@
+{
+  "retrieved": "2026-11-10",
+  "method": "Exact published lb tables; linear interpolation between bodyweight rows, nearest row outside range. No age adjustment. 5/20/50/80/95 percentile anchors; intermediate percentiles and 5RM/8RM are estimates. Community lift counts are entries, not unique participants or qualifying sample sizes.",
+  "sources": [
+    {
+      "exercise": "seated-leg-curl",
+      "url": "https://strengthlevel.com/strength-standards/seated-leg-curl/lb",
+      "retrieved": "2026-11-10",
+      "communityLifts": 457839,
+      "note": "Community reference, not a controlled research norm. Machine leverage, pulley ratio, setup and range of motion affect the load; compare progress on the same machine with consistent technique. Do not treat the percentile as an exact rank across machines. Use the seated two-leg variation; lying and single-leg curls are different exercises.",
+      "unit": "lb",
+      "load": "1RM",
+      "sexes": [
+        "male",
+        "female"
+      ],
+      "bodyweightRows": {
+        "male": 21,
+        "female": 18
+      }
+    },
+    {
+      "exercise": "machine-row",
+      "url": "https://strengthlevel.com/strength-standards/machine-row/lb",
+      "retrieved": "2026-11-10",
+      "communityLifts": 307206,
+      "note": "Community reference, not a controlled research norm. Machine leverage, pulley ratio, setup and range of motion affect the load; compare progress on the same machine with consistent technique. Do not treat the percentile as an exact rank across machines. Machine Row is a separate reference from Seated Cable Row. The source does not standardize every machine model or per-arm loading convention; keep your logging convention consistent.",
+      "unit": "lb",
+      "load": "1RM",
+      "sexes": [
+        "male",
+        "female"
+      ],
+      "bodyweightRows": {
+        "male": 21,
+        "female": 18
+      }
+    }
+  ]
+}

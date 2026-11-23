@@ -1,0 +1,17 @@
+{
+  "active": null,
+  "history": [],
+  "favorites": [
+    "bench-press",
+    "squat",
+    "lat-pulldown",
+    "dumbbell-shoulder-press",
+    "romanian-deadlift",
+    "dumbbell-lateral-raise"
+  ],
+  "profile": {
+    "sex": "male",
+    "bodyweight": null
+  }
+}
+

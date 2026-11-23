@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wout.local/schemas/wout-workouts.schema.json",
+  "title": "Wout workout export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["active", "history", "favorites", "profile"],
+  "properties": {
+    "active": { "oneOf": [{ "$ref": "#/$defs/session" }, { "type": "null" }] },
+    "history": { "type": "array", "maxItems": 5000, "items": { "$ref": "#/$defs/session" } },
+    "favorites": { "type": "array", "maxItems": 500, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "accessibleExercises": { "type": "array", "maxItems": 1000, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "bodyweights": { "type": "array", "maxItems": 20000, "items": { "$ref": "#/$defs/bodyweight" } },
+    "progressGoals": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/progressGoal" } },
+    "progressSeries": { "type": "array", "maxItems": 1000, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sex", "bodyweight"],
+      "properties": {
+        "sex": { "enum": ["male", "female"] },
+        "bodyweight": { "oneOf": [{ "type": "number", "minimum": 0, "maximum": 1500 }, { "type": "null" }] }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "timestamp": { "type": "number", "minimum": 0, "maximum": 100000000000000 },
+    "set": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weight", "reps", "done"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "weight": { "type": "number", "minimum": 0, "maximum": 3000 },
+        "reps": { "type": "integer", "minimum": 0, "maximum": 999 },
+        "done": { "type": "boolean" },
+        "completedAt": { "$ref": "#/$defs/timestamp" }
+      },
+      "allOf": [{ "if": { "properties": { "done": { "const": true } }, "required": ["done"] }, "then": { "properties": { "reps": { "minimum": 1 } } } }]
+    },
+    "loggedExercise": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "exerciseId", "sets"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "exerciseId": { "$ref": "#/$defs/id" },
+        "sets": { "type": "array", "maxItems": 100, "items": { "$ref": "#/$defs/set" } }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "startedAt", "exercises"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "startedAt": { "$ref": "#/$defs/timestamp" },
+        "finishedAt": { "$ref": "#/$defs/timestamp" },
+        "exercises": { "type": "array", "maxItems": 100, "items": { "$ref": "#/$defs/loggedExercise" } }
+      }
+    },
+    "bodyweight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weight", "recordedAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1500 },
+        "recordedAt": { "$ref": "#/$defs/timestamp" }
+      }
+    },
+    "liftGoal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exerciseId", "weight", "reps"],
+      "properties": {
+        "exerciseId": { "$ref": "#/$defs/id" },
+        "weight": { "type": "number", "minimum": 0, "maximum": 3000 },
+        "reps": { "enum": [1, 5, 8] }
+      }
+    },
+    "progressGoal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "lifts"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "bodyweight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1500 },
+        "lifts": { "type": "array", "maxItems": 1000, "items": { "$ref": "#/$defs/liftGoal" } }
+      },
+      "anyOf": [{ "required": ["bodyweight"] }, { "properties": { "lifts": { "minItems": 1 } } }]
+    }
+  }
+}
+
