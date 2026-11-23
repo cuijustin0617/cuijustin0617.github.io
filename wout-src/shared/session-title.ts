@@ -48,7 +48,7 @@ export function sessionSummary(session: Pick<Session, 'exercises'>, byId: Map<st
     if (!counts.has(e.exerciseId)) order.push(e.exerciseId);
     counts.set(e.exerciseId, (counts.get(e.exerciseId) ?? 0) + e.sets.length);
   }
-  return order.map(id => `${counts.get(id)}×${shortExerciseName(byId.get(id), id)}`).join(' · ');
+  return order.map(id => `${counts.get(id)}×${shortExerciseName(byId.get(id), id)}`).join('\u00a0· ');
 }
 
 /** What to show as a workout's title: the custom name, else the exercise summary. */

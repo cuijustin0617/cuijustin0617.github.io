@@ -8,31 +8,36 @@ import { Icon } from './Icon.tsx';
  * The top group is expanded with exercises to add; tap any other row to see its options.
  */
 export function BigGroupsCard({ groups, onAdd }: { groups: BigGroupStatus[]; onAdd: (exerciseId: string) => void }) {
+  const [cardOpen, setCardOpen] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const top = groups[0];
+  const next = groups.find(g => !g.inWorkout);
   const expanded = open ?? (top && !top.inWorkout ? top.id : null);
   return (
-    <section className="suggest tonal-tertiary" aria-label="Balance: big groups ranked by time since trained">
-      <div className="row" style={{ marginBottom: 4 }}>
+    <section className={'suggest tonal-tertiary bg-card' + (cardOpen ? ' open' : '')} aria-label="Balance: big groups ranked by time since trained">
+      <button className="bg-head" onClick={() => setCardOpen(o => !o)} aria-expanded={cardOpen}>
         <Icon name="balance" size={18} />
-        <div className="grow" style={{ fontWeight: 800, fontSize: 15 }}>Balance</div>
-        <span className="tiny muted">longest since trained first</span>
-      </div>
-      {groups.map((g, i) => {
+        <span className="bg-title">Balance</span>
+        <span className="bg-summary grow">
+          {cardOpen ? 'longest since trained first' : next ? <>Next: <strong>{next.name}</strong> · {sinceLabel(next.daysAgo)}</> : 'All groups in this workout'}
+        </span>
+        <span className="bg-chevron" aria-hidden="true"><Icon name="chevronDown" size={18} stroke={2.4} /></span>
+      </button>
+      {cardOpen && groups.map((g, i) => {
         const isOpen = expanded === g.id;
         return (
-          <div key={g.id} className="suggest-group" style={{ marginTop: i ? 0 : 4, paddingTop: i ? 6 : 6 }}>
-            <button className="row" style={{ width: '100%', textAlign: 'left', minHeight: 32 }} onClick={() => setOpen(isOpen ? '' : g.id)} aria-expanded={isOpen}>
-              <span style={{ width: 18, fontWeight: 800, opacity: 0.7 }}>{i + 1}</span>
-              <span className="grow" style={{ fontWeight: i === 0 ? 800 : 700, fontSize: i === 0 ? 16 : 14 }}>{g.name}</span>
+          <div key={g.id} className={'bg-item' + (i === 0 ? ' first' : '')}>
+            <button className="bg-row" onClick={() => setOpen(isOpen ? '' : g.id)} aria-expanded={isOpen}>
+              <span className="bg-rank">{i + 1}</span>
+              <span className="bg-name grow">{g.name}</span>
               {g.inWorkout
-                ? <span className="tiny" style={{ fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 3 }}><Icon name="check" size={14} stroke={2.8} />In this workout</span>
-                : <span className="small" style={{ fontWeight: i === 0 ? 800 : 600 }}>{sinceLabel(g.daysAgo)}</span>}
+                ? <span className="bg-when tiny"><Icon name="check" size={14} stroke={2.8} />In this workout</span>
+                : <span className="bg-when small">{sinceLabel(g.daysAgo)}</span>}
             </button>
             {isOpen && (
-              <div style={{ paddingLeft: 26, marginTop: 4 }}>
+              <div className="bg-options">
                 <div className="tiny muted">{g.sets7d} set{g.sets7d === 1 ? '' : 's'} in the last 7 days</div>
-                <div className="row wrap" style={{ gap: 6, marginTop: 6 }}>
+                <div className="bg-buttons">
                   {g.options.map((o, j) => (
                     <button key={o.id} className={'btn sm ' + (j === 0 ? 'tertiary' : 'on-tertiary')} onClick={() => onAdd(o.id)}>
                       <Icon name="plus" size={14} stroke={2.8} />{o.name}

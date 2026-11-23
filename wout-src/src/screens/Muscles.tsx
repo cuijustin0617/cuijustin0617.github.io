@@ -58,10 +58,10 @@ export function MusclesTab() {
             const isOpen = open === m;
             return (
               <div key={m}>
-                <button className="list-row" style={{ minHeight: 44, display: 'grid', gridTemplateColumns: '120px minmax(0,1fr) 58px', gap: 10 }} onClick={() => setOpen(isOpen ? null : m)} aria-expanded={isOpen}>
-                  <span className="t" style={{ fontSize: 14 }}>{muscleNames[m]}</span>
+                <button className="list-row" style={{ minHeight: 44, display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1fr) auto', gap: 12 }} onClick={() => setOpen(isOpen ? null : m)} aria-expanded={isOpen}>
+                  <span className="t ellipsis" style={{ fontSize: 14 }}>{muscleNames[m]}</span>
                   <span className="bar" role="img" aria-label={`${lb(entry.sets)} sets`}><div style={{ width: `${(entry.sets / max) * 100}%` }} /></span>
-                  <span style={{ textAlign: 'right', fontWeight: 800 }}>{lb(entry.sets)} <span className="tiny muted" style={{ fontWeight: 600 }}>sets</span></span>
+                  <span style={{ textAlign: 'right', fontWeight: 800, whiteSpace: 'nowrap', minWidth: 64 }}>{lb(entry.sets)} <span className="tiny muted" style={{ fontWeight: 600 }}>sets</span></span>
                 </button>
                 {isOpen && (
                   <div style={{ padding: '0 14px 10px' }} className="small muted">

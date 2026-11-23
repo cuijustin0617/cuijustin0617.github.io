@@ -237,7 +237,26 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .add-set { margin-top: 6px; width: 100%; height: 36px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--primary); background: color-mix(in srgb, var(--surface-hi) 70%, transparent); }
 .note { font-size: 12.5px; line-height: 17px; color: var(--ink-2); background: var(--surface-hi); border-radius: 12px; padding: 8px 10px; margin-top: 6px; }
 
-.suggest { border-radius: var(--radius-l); padding: 10px 12px; }
+.suggest { border-radius: var(--radius-l); padding: 12px 14px; }
+/* Balance card: 44px rows, even dividers, room under expanded options */
+.bg-card { padding: 4px 14px; }
+.bg-card.open { padding-bottom: 6px; }
+.bg-head { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 48px; text-align: left; }
+.bg-title { font-weight: 800; font-size: 15px; flex-shrink: 0; }
+.bg-summary { font-size: 13px; text-align: right; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bg-summary strong { font-weight: 800; }
+.bg-chevron { display: inline-flex; flex-shrink: 0; transition: transform 0.2s; }
+.bg-card.open .bg-chevron { transform: rotate(180deg); }
+.bg-item { border-top: 1px solid color-mix(in srgb, var(--on-tertiary-c) 12%, transparent); }
+.bg-item.first { border-top: 0; margin-top: 4px; }
+.bg-row { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; text-align: left; }
+.bg-rank { width: 18px; font-weight: 800; opacity: 0.7; flex-shrink: 0; }
+.bg-name { font-size: 15px; font-weight: 700; }
+.bg-item.first .bg-name { font-size: 16px; font-weight: 800; }
+.bg-when { display: inline-flex; align-items: center; gap: 3px; font-weight: 600; white-space: nowrap; }
+.bg-item.first .bg-when { font-weight: 800; }
+.bg-options { padding: 0 0 14px 26px; }
+.bg-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .suggest-group + .suggest-group { margin-top: 8px; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--on-tertiary-c) 12%, transparent); }
 
 /* ---------- Strength tier track (Glass) ---------- */

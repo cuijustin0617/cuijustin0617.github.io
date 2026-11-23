@@ -91,8 +91,8 @@ import { sessionTitle, shortExerciseName } from '../shared/session-title.ts';
 
 test('session titles: concise exercise summary unless a custom name is set', () => {
   const s = (name: string, ex: [string, number][]) => ({ name, exercises: ex.map(([id, n], i) => ({ id: 'e' + i, exerciseId: id, sets: Array.from({ length: n }, (_, j) => ({ id: `${i}-${j}`, weight: 0, reps: 5, done: true })) })) });
-  assert.equal(sessionTitle(s('Freestyle workout', [['bench-press', 3], ['squat', 4], ['incline-bench-press', 3]]), exerciseById), '3×Bench · 4×Squat · 3×Inc Bench');
-  assert.equal(sessionTitle(s('Freestyle workout', [['bench-press', 2], ['dips', 3], ['bench-press', 1]]), exerciseById), '3×Bench · 3×Dips');
+  assert.equal(sessionTitle(s('Freestyle workout', [['bench-press', 3], ['squat', 4], ['incline-bench-press', 3]]), exerciseById), '3×Bench\u00a0· 4×Squat\u00a0· 3×Inc Bench');
+  assert.equal(sessionTitle(s('Freestyle workout', [['bench-press', 2], ['dips', 3], ['bench-press', 1]]), exerciseById), '3×Bench\u00a0· 3×Dips');
   assert.equal(sessionTitle(s('Push Day', [['bench-press', 3]]), exerciseById), 'Push Day');
   assert.equal(sessionTitle(s('Freestyle workout', []), exerciseById), 'Empty workout');
   assert.equal(shortExerciseName({ id: 'x', name: 'Hammer Strength Iso-Lateral Row' }), 'Iso Row');
