@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { latestBodyweight, logBodyweight } from '../../shared/strength.ts';
 import { useWout } from '../lib/store.tsx';
 import { api } from '../lib/api.ts';
+import { getStyle, setStyle } from '../lib/theme.ts';
 import { exportWorkouts, useImportWorkouts } from '../lib/importExport.ts';
 import { ago, lb } from '../lib/format.ts';
 import { NumberInput } from '../components/ExerciseCard.tsx';
@@ -13,6 +14,8 @@ export function ProfileScreen() {
   const { user, state, update, sync, syncMessage, revision, lastSaved, signOut, toast, restDefault, setRestDefault } = useWout();
   const bw = latestBodyweight(state);
   const [weight, setWeight] = useState(bw ?? 0);
+  const [bento, setBento] = useState(getStyle() === 'bento');
+  const toggleBento = () => { const next = !bento; setBento(next); setStyle(next ? 'bento' : 'expressive'); };
   const file = useRef<HTMLInputElement>(null);
 
   const importWorkouts = useImportWorkouts();
@@ -57,6 +60,17 @@ export function ProfileScreen() {
           <button className="btn primary" disabled={!weight} onClick={() => update(s => logBodyweight(s, weight)) && toast('Bodyweight logged')}>Log bodyweight</button>
         </div>
         <div className="tiny muted">Current: {bw ? `${lb(bw)} lb` : 'not set'}. Percentiles use community strength standards without age adjustment.</div>
+      </section>
+
+      <div className="section-label">Appearance</div>
+      <section className="card">
+        <div className="row" style={{ gap: 12 }}>
+          <div className="grow">
+            <div id="bento-label" style={{ fontWeight: 700 }}>Bento style</div>
+            <div className="small muted">Soft pastel tiles in violet. Off uses the teal Expressive style. Saved on this device.</div>
+          </div>
+          <button className="switch" role="switch" aria-checked={bento} aria-labelledby="bento-label" onClick={toggleBento} />
+        </div>
       </section>
 
       <div className="section-label">Rest timer</div>
