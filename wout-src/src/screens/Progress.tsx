@@ -123,10 +123,10 @@ function PercentBadge({ value, label }: { value: number; label: string }) {
   return (
     <div style={{ position: 'relative', width: 76, height: 76, flexShrink: 0 }} aria-hidden="true">
       <svg width="76" height="76" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="38" fill="var(--primary-c)" />
-        <circle cx="50" cy="50" r="38" fill="none" stroke="var(--primary-c)" strokeWidth="13" strokeLinecap="round" strokeDasharray="0.1 19.796" />
+        <circle cx="50" cy="50" r="38" fill="var(--badge-fill, var(--primary-c))" />
+        <circle cx="50" cy="50" r="38" fill="none" stroke="var(--badge-fill, var(--primary-c))" strokeWidth="13" strokeLinecap="round" strokeDasharray="0.1 19.796" />
       </svg>
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--on-primary-c)', fontSize: 22, fontWeight: 800, fontStretch: '90%' }}>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--badge-ink, var(--on-primary-c))', fontSize: 22, fontWeight: 800, fontStretch: '90%' }}>
         {text}<span style={{ fontSize: 12 }}>%</span>
       </div>
     </div>

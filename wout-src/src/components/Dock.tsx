@@ -34,9 +34,9 @@ export function Dock({ route, fab }: { route: string; fab: { label: string; icon
       <nav className="nav-row" aria-label="Primary">
         <div className="bubble glass">
           {tabs.map(t => (
-            <a key={t.id} href={`#/${t.id}`} aria-current={route === t.id ? 'page' : undefined}>
+            <a key={t.id} href={`#/${t.id}`} aria-label={t.label} aria-current={route === t.id ? "page" : undefined}>
               <Icon name={t.icon} size={22} stroke={route === t.id ? 2.3 : 2} />
-              {t.label}
+              <span className="nav-label">{t.label}</span>
             </a>
           ))}
         </div>

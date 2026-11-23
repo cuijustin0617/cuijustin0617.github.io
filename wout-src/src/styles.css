@@ -64,28 +64,42 @@
   --radius-xl: 28px; --radius-l: 26px; --radius-m: 18px;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root[data-style="bento"]:not([data-theme="light"]) {
-    --bg: #13111c; --surface: #1e1b2b; --surface-2: #282438; --surface-hi: #2a2640;
-    --ink: #ece9f7; --ink-2: #c4bfdc; --ink-3: #a39dbf; --outline: #8a84a8; --outline-2: #3a3550;
-    --primary: #b8a8ff; --on-primary: #24145f; --primary-c: #3b2f7a; --on-primary-c: #ece9f7;
-    --secondary-c: #2a2640; --on-secondary-c: #ece9f7;
-    --tertiary: #ffb68f; --tertiary-c: #4e2612; --on-tertiary-c: #ffe4d4;
-    --error: #ffb4ab; --error-c: #93000a;
-    --track: #322d48; --tick: var(--surface);
-    --glass: rgba(30, 27, 43, 0.9); --glass-border: rgba(255, 255, 255, 0.07);
-    --glass-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-    --heat-0: #2a2640; --heat-1: #4a3a9a; --heat-2: #7d66f0; --heat-3: #c9bcff; --heat-due: #ff9a5c; --body: #221f31;
-    color-scheme: dark;
-  }
+/* Bento puts white tiles on a lavender page, with lilac / sky / mint / peach accent tiles. */
+:root[data-style="bento"] {
+  --tile-lilac: #e7e2fb; --tile-sky: #dcebff; --tile-mint: #d9f2e3; --tile-peach: #ffe4d4;
+  --badge-fill: #ffffff; --badge-ink: #1b1830;
 }
-/* Bento puts white tiles on a lavender page, so page-level pieces get their own surface. */
 :root[data-style="bento"] .card.hi { background: var(--surface); }
 :root[data-style="bento"] .chip:not(.selected) { background: var(--surface); }
-:root[data-style="bento"] .hero.dark { background: var(--primary); }
 :root[data-style="bento"] .title, :root[data-style="bento"] .name-input { letter-spacing: -0.02em; }
-:root[data-style="bento"] .seg > button { border-radius: 20px; }
-:root[data-style="bento"] .seg > button[aria-pressed="true"], :root[data-style="bento"] .seg > button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+/* Tabs: white pills on the page, dark pill when selected; light pills inside white cards */
+:root[data-style="bento"] .seg > button { border-radius: 20px; background: var(--surface); }
+:root[data-style="bento"] .card .seg > button, :root[data-style="bento"] .sheet .seg > button { background: var(--surface-hi); }
+:root[data-style="bento"] .seg > button[aria-pressed="true"], :root[data-style="bento"] .seg > button[aria-selected="true"] { background: var(--ink); color: #ffffff; }
+/* Top lift: lilac tile with a white badge */
+:root[data-style="bento"] .hero.dark { background: var(--tile-lilac); color: var(--ink); }
+/* Workout summary: three pastel tiles instead of one block */
+:root[data-style="bento"] .hero.hero-tiles { background: none; padding: 0; color: var(--ink); }
+:root[data-style="bento"] .hero.hero-tiles .stat-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: stretch; }
+:root[data-style="bento"] .hero.hero-tiles .stat { border-radius: 22px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; min-height: 84px; }
+:root[data-style="bento"] .hero.hero-tiles .stat:nth-child(1) { background: var(--tile-lilac); }
+:root[data-style="bento"] .hero.hero-tiles .stat:nth-child(2) { background: var(--tile-sky); }
+:root[data-style="bento"] .hero.hero-tiles .stat:nth-child(3) { background: var(--tile-mint); }
+:root[data-style="bento"] .hero.hero-tiles .stat .v.xl { font-size: 30px; line-height: 34px; }
+/* Peach suggestion card with white "Add" pills */
+:root[data-style="bento"] .btn.tertiary { background: #ffffff; color: var(--ink); }
+:root[data-style="bento"] .btn.on-tertiary { background: rgba(255, 255, 255, 0.55); color: var(--ink); }
+/* Mint rest timer */
+:root[data-style="bento"] .rest-strip.glass { background: var(--tile-mint); border-color: transparent; }
+:root[data-style="bento"] .rest-strip .btn.tonal { background: #ffffff; }
+/* Nav: solid white pill; active tab is a violet pill with icon + label; others icon-only */
+:root[data-style="bento"] .bubble.glass { background: #ffffff; backdrop-filter: none; -webkit-backdrop-filter: none; border-color: transparent; }
+:root[data-style="bento"] .bubble { gap: 4px; padding: 0 6px; }
+:root[data-style="bento"] .bubble a { flex-direction: row; gap: 8px; width: 52px; color: var(--ink-2); }
+:root[data-style="bento"] .bubble a .nav-label { display: none; }
+:root[data-style="bento"] .bubble a[aria-current="page"] { width: auto; padding: 0 20px; background: var(--primary); color: #ffffff; font-size: 15px; font-weight: 700; }
+:root[data-style="bento"] .bubble a[aria-current="page"] .nav-label { display: inline; }
+:root[data-style="bento"] .fab.glass { background: var(--tile-lilac); color: var(--primary); backdrop-filter: none; -webkit-backdrop-filter: none; border: 6px solid #ffffff; }
 
 /* Toggle switch */
 .switch { position: relative; width: 52px; height: 32px; border-radius: 16px; background: var(--outline-2); flex-shrink: 0; transition: background 0.2s; }

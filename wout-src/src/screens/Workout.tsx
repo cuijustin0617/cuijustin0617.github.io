@@ -123,7 +123,7 @@ function ActiveTitle({ session, onRename }: { session: Session; onRename: (name:
 function ActiveHero({ session }: { session: Session }) {
   const stats = sessionStats(session);
   return (
-    <section className="hero" aria-label="Workout summary">
+    <section className="hero hero-tiles" aria-label="Workout summary">
       <div className="stat-row">
         <div className="stat"><div className="k">Sets done</div><div className="v xl">{stats.sets}<small> / {stats.total}</small></div></div>
         <div className="stat"><div className="k">Exercises</div><div className="v">{stats.exercises}</div></div>
