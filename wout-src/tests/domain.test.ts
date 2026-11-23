@@ -55,3 +55,34 @@ test('empty export validates; finishing keeps only completed sets', () => {
   assert.equal(done.history[0].exercises[0].sets.length, 1);
   assert.ok(validateState(done));
 });
+
+import { bigGroupOf, rankBigGroups } from '../shared/big-groups.ts';
+
+test('big groups: classification follows the five-group rules', () => {
+  const g = (id: string) => bigGroupOf(exerciseById.get(id)!);
+  assert.equal(g('bench-press'), 'chest'); assert.equal(g('dips'), 'chest'); assert.equal(g('machine-chest-fly'), 'chest'); assert.equal(g('chest-press'), 'chest');
+  assert.equal(g('pull-ups'), 'vertical-back'); assert.equal(g('lat-pulldown'), 'vertical-back'); assert.equal(g('neutral-grip-pull-ups'), 'vertical-back');
+  assert.equal(g('machine-row'), 'horizontal-back');
+  assert.equal(bigGroupOf({ name: 'Hammer Strength Iso-Lateral Row' }), 'horizontal-back');
+  assert.equal(g('romanian-deadlift'), 'hamstrings'); assert.equal(g('seated-leg-curl'), 'hamstrings'); assert.equal(g('dumbbell-romanian-deadlift'), 'hamstrings');
+  assert.equal(g('squat'), 'quads'); assert.equal(g('dumbbell-bulgarian-split-squat'), 'quads');
+  assert.equal(bigGroupOf({ name: 'Upright Row' }), null); assert.equal(bigGroupOf({ name: 'Reverse Fly' }), null);
+  assert.equal(g('dumbbell-shoulder-press'), null); assert.equal(g('dumbbell-curl'), null);
+});
+
+test('big groups: ranked by longest since trained; future sets and current workout handled', () => {
+  const day = 86_400_000, now = Date.UTC(2026, 10, 23, 18);
+  const session = (id: string, daysAgo: number, exerciseIds: string[]) => ({ id, name: id, startedAt: now - daysAgo * day, finishedAt: now - daysAgo * day,
+    exercises: exerciseIds.map((e, i) => ({ id: id + i, exerciseId: e, sets: [{ id: id + i + 's', weight: 100, reps: 5, done: true }] })) });
+  const state: WorkoutState = { ...emptyState(), history: [
+    session('a', 1, ['squat', 'bench-press']),   // squat does NOT count for hamstrings
+    session('b', 4, ['lat-pulldown']),
+    session('c', 6, ['machine-row']),
+    session('d', 9, ['romanian-deadlift']),
+    session('future', -0.1, ['romanian-deadlift']), // later than now: ignored
+  ] };
+  assert.deepEqual(rankBigGroups(state, catalog, now).map(r => r.id), ['hamstrings', 'horizontal-back', 'vertical-back', 'chest', 'quads']);
+  const withActive = { ...state, active: { id: 'act', name: 'x', startedAt: now, exercises: [{ id: 'q', exerciseId: 'seated-leg-curl', sets: [] }] } };
+  const ranked = rankBigGroups(withActive, catalog, now);
+  assert.equal(ranked.at(-1)!.id, 'hamstrings'); assert.ok(ranked.at(-1)!.inWorkout);
+});

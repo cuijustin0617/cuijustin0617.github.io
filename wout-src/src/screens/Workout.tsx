@@ -1,6 +1,8 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { addExercise, beginSession, finishSession, getPreviousSets, sessionStats, uid, type Session, type WorkoutState } from '../../shared/workout.ts';
-import { addAccessibleExercise, suggestExercises, type BalanceGroup } from '../../shared/recommendations.ts';
+import { addAccessibleExercise, suggestExercises } from '../../shared/recommendations.ts';
+import { rankBigGroups, type BigGroupStatus } from '../../shared/big-groups.ts';
+import { BigGroupsCard } from '../components/BigGroups.tsx';
 import { latestBodyweight } from '../../shared/strength.ts';
 import { useWout } from '../lib/store.tsx';
 import { go, useCatalog, useNow } from '../lib/hooks.ts';
@@ -32,10 +34,11 @@ export function WorkoutScreen({ onAddExercise }: { onAddExercise: () => void }) 
   const active = state.active;
   const minute = useNow(60_000);
   const suggestions = useMemo(() => suggestExercises(state, catalog, Date.now(), 4), [state, catalog, minute]);
+  const bigGroups = useMemo(() => rankBigGroups(state, catalog, Date.now()), [state, catalog, minute]);
 
   const add = (id: string) => update(s => addAccessibleExercise(s, id));
 
-  if (!active) return <IdleWorkout groups={suggestions.balanceGroups} onAdd={add} />;
+  if (!active) return <IdleWorkout groups={bigGroups} onAdd={add} />;
 
   const bodyweight = latestBodyweight(state);
   const editActive = (fn: (s: Session) => Session, undo?: string) => update(s => (s.active ? { ...s, active: fn(s.active) } : s), undo);
@@ -63,7 +66,7 @@ export function WorkoutScreen({ onAddExercise }: { onAddExercise: () => void }) 
 
       <ActiveHero session={active} />
 
-      {suggestions.balanceGroups.length > 0 && <BalanceCard groups={suggestions.balanceGroups} onAdd={add} />}
+      <BigGroupsCard groups={bigGroups} onAdd={add} />
       {suggestions.likely.length > 0 && (
         <div className="chips" aria-label="Likely next exercises">
           {suggestions.likely.map(s => (
@@ -107,39 +110,7 @@ function ActiveHero({ session }: { session: Session }) {
   );
 }
 
-export function BalanceCard({ groups, onAdd }: { groups: BalanceGroup[]; onAdd: (id: string) => void }) {
-  const [all, setAll] = useState(false);
-  const shown = all ? groups : groups.slice(0, 1);
-  return (
-    <section className="suggest tonal-tertiary" aria-label="Balance suggestions">
-      {shown.map(g => (
-        <div key={g.muscle} className="suggest-group">
-          <div className="row">
-            <Icon name="balance" size={18} />
-            <div className="grow">
-              <div style={{ fontWeight: 800, fontSize: 15 }}>Balance: {g.name}</div>
-              <div className="tiny muted">{g.reason}</div>
-            </div>
-          </div>
-          <div className="row wrap" style={{ marginTop: 6, gap: 6 }}>
-            {g.options.map((o, i) => (
-              <button key={o.exercise.id} className={'btn sm ' + (i === 0 ? 'tertiary' : 'on-tertiary')} onClick={() => onAdd(o.exercise.id)} title={o.reason}>
-                <Icon name="plus" size={14} stroke={2.8} />{o.exercise.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      ))}
-      {groups.length > 1 && (
-        <button className="btn sm ghost" style={{ color: 'inherit', marginTop: 4, paddingLeft: 0 }} onClick={() => setAll(a => !a)} aria-expanded={all}>
-          {all ? 'Show less' : `${groups.length - 1} more muscle group${groups.length > 2 ? 's' : ''}`}
-        </button>
-      )}
-    </section>
-  );
-}
-
-function IdleWorkout({ groups, onAdd }: { groups: BalanceGroup[]; onAdd: (id: string) => void }) {
+function IdleWorkout({ groups, onAdd }: { groups: BigGroupStatus[]; onAdd: (id: string) => void }) {
   const { state, update } = useWout();
   const recent = state.history.slice(0, 3);
   const last = state.history[0];
@@ -189,12 +160,8 @@ function IdleWorkout({ groups, onAdd }: { groups: BalanceGroup[]; onAdd: (id: st
           </div>
         </>
       )}
-      {groups.length > 0 && (
-        <>
-          <div className="section-label">Suggested focus</div>
-          <BalanceCard groups={groups} onAdd={onAdd} />
-        </>
-      )}
+      <div className="section-label">Suggested focus</div>
+      <BigGroupsCard groups={groups} onAdd={onAdd} />
     </>
   );
 }

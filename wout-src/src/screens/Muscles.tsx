@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 import { muscleTraining, muscleNames, muscles, type Muscle } from '../../shared/training-progress.ts';
-import { addAccessibleExercise, suggestExercises } from '../../shared/recommendations.ts';
+import { addAccessibleExercise } from '../../shared/recommendations.ts';
+import { rankBigGroups } from '../../shared/big-groups.ts';
+import { BigGroupsCard } from '../components/BigGroups.tsx';
 import { useWout } from '../lib/store.tsx';
 import { go, useCatalog } from '../lib/hooks.ts';
 import { ago, lb } from '../lib/format.ts';
 import { BodyMap } from '../components/BodyMap.tsx';
-import { Icon } from '../components/Icon.tsx';
 
 const DAY = 86_400_000;
 const PERIODS = { 7: { label: '7 days', scale: [5, 10] as [number, number] }, 30: { label: '30 days', scale: [15, 30] as [number, number] } };
@@ -17,8 +18,9 @@ export function MusclesTab() {
   const [open, setOpen] = useState<Muscle | null>(null);
   const now = Date.now();
   const work = useMemo(() => muscleTraining(state, catalog, now - days * DAY, now, true), [state, catalog, days]);
-  const balance = useMemo(() => suggestExercises(state, catalog, now, 2).balanceGroups, [state, catalog]);
-  const due = balance[0];
+  const bigGroups = useMemo(() => rankBigGroups(state, catalog, now), [state, catalog]);
+  // Highlight the big group trained longest ago (unless it's already in today's workout).
+  const next = bigGroups[0] && !bigGroups[0].inWorkout ? bigGroups[0] : null;
   const sets = Object.fromEntries(muscles.map(m => [m, work.entries[m].sets])) as Record<Muscle, number>;
   const ranked = muscles.filter(m => sets[m] > 0).sort((a, b) => sets[b] - sets[a]);
   const max = Math.max(1, ...ranked.map(m => sets[m]));
@@ -36,31 +38,18 @@ export function MusclesTab() {
             {([7, 30] as const).map(d => <button key={d} aria-pressed={days === d} onClick={() => setDays(d)}>{PERIODS[d].label}</button>)}
           </div>
         </div>
-        <BodyMap sex={state.profile.sex} sets={sets} due={new Set(due ? [due.muscle] : [])} scale={scale}
-          label={`Front and back body map. ${summary}${due ? ` ${due.name} is due.` : ''}`} />
+        <BodyMap sex={state.profile.sex} sets={sets} due={new Set(next ? next.muscles : [])} scale={scale}
+          label={`Front and back body map. ${summary}${next ? ` Next up: ${next.name}.` : ''}`} />
         <div className="legend" style={{ marginTop: 6 }}>
           <span><i style={{ background: 'var(--heat-0)' }} />0</span>
           <span><i style={{ background: 'var(--heat-1)' }} />&lt;{scale[0]}</span>
           <span><i style={{ background: 'var(--heat-2)' }} />{scale[0]}–{scale[1] - 1}</span>
           <span><i style={{ background: 'var(--heat-3)' }} />{scale[1]}+ sets</span>
-          {due && <span><i style={{ background: 'var(--heat-due)', borderRadius: 6 }} />Due</span>}
+          {next && <span><i style={{ background: 'var(--heat-due)', borderRadius: 6 }} />Next up</span>}
         </div>
       </section>
 
-      {due && (
-        <section className="suggest tonal-tertiary">
-          <div style={{ fontWeight: 800, fontSize: 17, fontStretch: '105%' }}>{due.name} {due.lastTrained ? 'are due' : 'not trained yet'}</div>
-          <div className="small muted">{due.reason}</div>
-          <div className="row wrap" style={{ gap: 6, marginTop: 8 }}>
-            {due.options.map((o, i) => (
-              <button key={o.exercise.id} className={'btn sm ' + (i === 0 ? 'tertiary' : 'on-tertiary')} onClick={() => add(o.exercise.id)}>
-                <Icon name="plus" size={14} stroke={2.8} />{o.exercise.name}
-              </button>
-            ))}
-            {!due.options.length && <span className="small">Mark equipment you can use in Exercises to get options.</span>}
-          </div>
-        </section>
-      )}
+      <BigGroupsCard groups={bigGroups} onAdd={add} />
 
       {ranked.length > 0 ? (
         <div className="group">
