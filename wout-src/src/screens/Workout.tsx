@@ -4,7 +4,7 @@ import { addAccessibleExercise, suggestExercises, type BalanceGroup } from '../.
 import { latestBodyweight } from '../../shared/strength.ts';
 import { useWout } from '../lib/store.tsx';
 import { go, useCatalog, useNow } from '../lib/hooks.ts';
-import { ago, clock, dayLabel, timeOfDay, whole } from '../lib/format.ts';
+import { ago, dayLabel, whole } from '../lib/format.ts';
 import { ExerciseCard, Menu } from '../components/ExerciseCard.tsx';
 import { useImportWorkouts } from '../lib/importExport.ts';
 import { Icon } from '../components/Icon.tsx';
@@ -55,7 +55,7 @@ export function WorkoutScreen({ onAddExercise }: { onAddExercise: () => void }) 
           <input className="name-input" aria-label="Workout name" defaultValue={active.name} key={active.id + active.name} maxLength={200}
             onBlur={e => { const name = e.target.value.trim(); if (name && name !== active.name) editActive(s => ({ ...s, name })); else e.target.value = active.name; }}
             onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }} />
-          <div className="subtitle">{dayLabel(active.startedAt)} · started {timeOfDay(active.startedAt)}</div>
+          <div className="subtitle">{dayLabel(active.startedAt)} · {active.exercises.length} exercise{active.exercises.length === 1 ? '' : 's'}</div>
         </div>
         <button className="btn dark" onClick={finish}>Finish</button>
         <Menu label="Workout options" items={[{ label: 'Discard workout', onClick: discard, danger: true }]} />
@@ -95,13 +95,12 @@ export function WorkoutScreen({ onAddExercise }: { onAddExercise: () => void }) 
 }
 
 function ActiveHero({ session }: { session: Session }) {
-  const now = useNow(1000);
   const stats = sessionStats(session);
   return (
     <section className="hero" aria-label="Workout summary">
       <div className="stat-row">
-        <div className="stat"><div className="k">Elapsed</div><div className="v xl">{clock(now - session.startedAt)}</div></div>
-        <div className="stat"><div className="k">Sets</div><div className="v">{stats.sets}<small> / {stats.total}</small></div></div>
+        <div className="stat"><div className="k">Sets done</div><div className="v xl">{stats.sets}<small> / {stats.total}</small></div></div>
+        <div className="stat"><div className="k">Exercises</div><div className="v">{stats.exercises}</div></div>
         <div className="stat"><div className="k">Volume</div><div className="v">{whole(stats.volume)}<small> lb</small></div></div>
       </div>
     </section>

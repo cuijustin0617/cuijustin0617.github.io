@@ -15,11 +15,6 @@ export function clock(ms: number) {
   return h ? `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}` : `${m}:${String(s).padStart(2, '0')}`;
 }
 
-export function duration(ms: number) {
-  const minutes = Math.max(1, Math.round(ms / 60_000));
-  return minutes < 60 ? `${minutes} min` : `${Math.floor(minutes / 60)} h ${minutes % 60} min`;
-}
-
 const startOfDay = (at: number) => { const d = new Date(at); d.setHours(0, 0, 0, 0); return d.getTime(); };
 export function dayLabel(at: number, now = Date.now()) {
   const diff = Math.round((startOfDay(now) - startOfDay(at)) / DAY);

@@ -4,12 +4,29 @@ import { addAccessibleExercise } from '../../shared/recommendations.ts';
 import { latestBodyweight } from '../../shared/strength.ts';
 import { useWout } from '../lib/store.tsx';
 import { go, useCatalog } from '../lib/hooks.ts';
-import { dayLabel, duration, lb, monthLabel, timeOfDay, whole } from '../lib/format.ts';
+import { dayLabel, lb, monthLabel, whole } from '../lib/format.ts';
 import { ExerciseCard } from '../components/ExerciseCard.tsx';
 import { ExercisePicker } from '../components/ExercisePicker.tsx';
 import { Sheet } from '../components/Sheet.tsx';
 import { Icon } from '../components/Icon.tsx';
 import { ProfileButton, repeatSession } from './Workout.tsx';
+
+/** Latest timestamp in a session (start, finish or any set). */
+function latestTime(s: Session) {
+  return Math.max(s.startedAt, s.finishedAt ?? 0, ...s.exercises.flatMap(e => e.sets.map(x => x.completedAt ?? 0)));
+}
+
+/**
+ * Moving a workout to a date keeps its time of day, so moving an evening workout to "today"
+ * can land it in the future, where workload and suggestions ignore it. Shift it back to now.
+ */
+function notInFuture(s: Session): Session {
+  const shift = Math.min(0, Date.now() - latestTime(s));
+  if (!shift) return s;
+  const at = (t: number) => t + shift;
+  return { ...s, startedAt: at(s.startedAt), ...(s.finishedAt === undefined ? {} : { finishedAt: at(s.finishedAt) }),
+    exercises: s.exercises.map(e => ({ ...e, sets: e.sets.map(x => (x.completedAt === undefined ? x : { ...x, completedAt: at(x.completedAt) })) })) };
+}
 
 export function HistoryScreen() {
   const { state, update } = useWout();
@@ -46,8 +63,9 @@ export function HistoryScreen() {
                     <div className="grow">
                       <div className="t ellipsis">{s.name}</div>
                       <div className="s ellipsis">
-                        {dayLabel(s.finishedAt ?? s.startedAt)} · {s.finishedAt && s.finishedAt - s.startedAt < 12 * 3_600_000 ? duration(s.finishedAt - s.startedAt) : timeOfDay(s.startedAt)} · {stats.sets} sets · {whole(stats.volume)} lb
+                        {dayLabel(s.finishedAt ?? s.startedAt)} · {stats.sets} sets · {s.exercises.length} exercises · {whole(stats.volume)} lb
                       </div>
+                      {latestTime(s) > Date.now() && <div className="tiny" style={{ color: 'var(--tertiary)', fontWeight: 700 }}>Dated later than now · not counted until then. Edit to fix the date.</div>}
                     </div>
                     <Icon name={isOpen ? 'chevronDown' : 'chevronRight'} size={18} />
                   </button>
@@ -94,7 +112,7 @@ function SessionEditor({ id, onClose }: { id: string; onClose: () => void }) {
           onBlur={e => { const n = e.target.value.trim(); if (n && n !== session.name) edit(s => ({ ...s, name: n })); }} />
         <input type="date" className="input on-surface" style={{ width: 160 }} aria-label="Workout date" value={dateInputValue(session.finishedAt ?? session.startedAt)}
           max={dateInputValue(Date.now())}
-          onChange={e => { if (!e.target.value) return; try { edit(s => setSessionDate(s, e.target.value)); } catch (err) { toast((err as Error).message); } }} />
+          onChange={e => { if (!e.target.value) return; try { edit(s => notInFuture(setSessionDate(s, e.target.value))); } catch (err) { toast((err as Error).message); } }} />
       </div>
       {session.exercises.map((logged, i) => (
         <ExerciseCard key={logged.id} logged={logged} mode="history" previous={getPreviousSets(earlier, logged.exerciseId)} bodyweight={bodyweight}
