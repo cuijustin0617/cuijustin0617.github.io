@@ -346,3 +346,47 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-mark { width: 52px; height: 52px; border-radius: 18px; background: var(--primary); color: var(--primary-c); display: flex; align-items: center; justify-content: center; }
 .splash { min-height: 100dvh; display: flex; align-items: center; justify-content: center; color: var(--ink-2); }
+
+/* ---------- Bento Strength / Muscles blocks (canvas design) ---------- */
+.bento-top { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: #e7e2fb; color: #1b1830; border-radius: 26px; padding: 16px 16px 16px 18px; }
+.bento-kicker { font-size: 12px; font-weight: 700; color: #4a4563; }
+.bento-top-name { font-size: 21px; line-height: 25px; font-weight: 800; letter-spacing: -0.01em; margin-top: 2px; }
+.bento-pill { display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 13px; background: #ffffff; color: #4527d6; font-size: 12.5px; font-weight: 800; }
+.bento-ring { position: relative; width: 92px; height: 92px; flex-shrink: 0; }
+.bento-ring-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; letter-spacing: -0.03em; color: #1b1830; }
+.bento-ring-label small { font-size: 13px; }
+.bento-tiles-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.bento-tiles-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.bento-tile { display: block; width: 100%; text-align: left; border-radius: 24px; padding: 14px 16px; color: #1b1830; }
+.bento-tile.sky { background: #dcebff; } .bento-tile.mint { background: #d9f2e3; } .bento-tile.lilac { background: #e7e2fb; }
+.bento-tile.peach { background: #ffe4d4; } .bento-tile.white { background: #ffffff; }
+.bento-tile .muted { color: #4a4563; }
+.bento-tile-name { font-size: 15px; font-weight: 800; }
+.bento-tile-title { font-size: 16px; line-height: 21px; font-weight: 800; }
+.bento-tile-big { font-size: 40px; line-height: 46px; font-weight: 800; letter-spacing: -0.03em; }
+.bento-tile-big small { font-size: 18px; }
+.bento-tile-num { font-size: 28px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; }
+.bento-bar { height: 8px; border-radius: 4px; background: #ffffff; margin-top: 8px; overflow: hidden; }
+.bento-bar > div { height: 100%; border-radius: 4px; }
+.bento-tile.sky .bento-bar > div { background: #1d5fd1; }
+.bento-tile.mint .bento-bar > div { background: #1f7a4c; }
+.est-text { color: #a3430d; }
+.bento-list { background: #ffffff; border-radius: 26px; padding: 4px 16px; }
+.bento-row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 8px 0; text-align: left; color: #1b1830; }
+.bento-row + .bento-row { border-top: 1px solid #eceaf5; }
+.bento-row-name { font-size: 15px; font-weight: 700; }
+.bento-row .muted { color: #625e78; }
+.bento-mini-bar { width: 60px; height: 8px; border-radius: 4px; background: #eceaf5; flex-shrink: 0; overflow: hidden; }
+.bento-mini-bar > div { height: 100%; border-radius: 4px; background: #5b3df5; }
+.bento-mini-bar > div.est { background: #a39cc4; }
+.bento-row-pct { width: 48px; text-align: right; font-size: 17px; font-weight: 800; flex-shrink: 0; }
+.bento-due-row { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 10px; }
+.bento-due { display: flex; flex-direction: column; gap: 2px; }
+.bento-due .bento-white-btn { margin-top: 12px; align-self: flex-start; background: #ffffff; color: #1b1830; max-width: 100%; white-space: normal; height: auto; min-height: 36px; padding: 7px 14px; line-height: 1.25; text-align: left; justify-content: flex-start; }
+.bento-due .bento-white-btn svg { color: #a3430d; flex-shrink: 0; }
+.bento-most { display: flex; flex-direction: column; justify-content: center; }
+.bento-select { position: relative; display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 0 12px; border-radius: 18px; background: var(--surface-hi); font-size: 13px; font-weight: 700; }
+.bento-select select { appearance: none; -webkit-appearance: none; border: 0; background: transparent; font: inherit; color: inherit; padding-right: 2px; outline: none; cursor: pointer; }
+.bento-select svg { pointer-events: none; }
+.pick-badge { width: 28px; height: 28px; border-radius: 14px; border: 2px solid var(--outline-2); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex-shrink: 0; }
+.pick-badge.on { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }

@@ -11,6 +11,8 @@ import { ProfileButton } from './Workout.tsx';
 import { MusclesTab } from './Muscles.tsx';
 import { WeightTab } from './Weight.tsx';
 import { GoalsTab } from './Goals.tsx';
+import { BentoStrength } from './BentoStrength.tsx';
+import { getStyle } from '../lib/theme.ts';
 
 const TABS = [['weight', 'Weight'], ['strength', 'Strength'], ['muscles', 'Muscles'], ['goals', 'Goals']] as const;
 
@@ -64,6 +66,8 @@ function StrengthTab() {
       </section>
     );
   }
+
+  if (getStyle() === 'bento' && board.ranked.length) return <BentoStrength board={board} bw={bw} sexLabel={sexLabel} />;
 
   const percentileRows = board.ranked.filter(r => r.rankingKind === 'percentile');
   const top = percentileRows[0];

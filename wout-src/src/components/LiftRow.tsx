@@ -43,8 +43,22 @@ export function LiftRow({ r, sexLabel }: { r: Ranked; sexLabel: string }) {
         {ticks.map(t => <div key={t} className="tick" style={{ left: t + '%' }} />)}
         <div className={'knob' + (estimate || tier ? ' est' : '')} style={{ left: fill + '%' }} />
       </div>
-      {open && (
-        <>
+      {open && <LiftDetails r={r} sexLabel={sexLabel} />}
+    </div>
+  );
+}
+
+/** Anchors (5 tiers, current highlighted) and source / estimate notes for one ranked lift. */
+export function LiftDetails({ r, sexLabel }: { r: Ranked; sexLabel: string }) {
+  const { exercise, percentile: p, rankingKind } = r;
+  const tier = rankingKind === 'tier';
+  const estimate = rankingKind === 'proxy';
+  const added = isAddedWeight(exercise);
+  const perHand = equipmentKind(exercise) === 'dumbbell';
+  const labels = tier ? exercise.benchmarkTier!.labels : levels;
+  const levelIndex = labels.indexOf(p.level);
+  return (
+    <>
           <div className="anchors">
             {r.standards.map((v, i) => (
               <div key={i} className={'anchor' + (i === levelIndex ? ' on' : '')}>
@@ -65,8 +79,6 @@ export function LiftRow({ r, sexLabel }: { r: Ranked; sexLabel: string }) {
             {exercise.loadNote && <div>{exercise.loadNote}</div>}
             {!tier && !estimate && <div>Community data{exercise.benchmarkEvidence ? ` (${exercise.benchmarkEvidence.communityLifts.toLocaleString()} lifts)` : ''} from {exercise.source ? <a href={exercise.source} target="_blank" rel="noreferrer">Strength Level</a> : 'Strength Level'}. No age adjustment; machines vary by setup.</div>}
           </div>
-        </>
-      )}
-    </div>
+    </>
   );
 }
